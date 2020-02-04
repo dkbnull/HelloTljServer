@@ -1,0 +1,24 @@
+server:
+  port: 8081
+  servlet:
+    context-path: /hellotlj
+  max-http-header-size: 8999
+#
+management:
+  server:
+    port: 81
+  endpoint:
+    shutdown:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: shutdown
+#
+#
+aip:
+  #记录日志等级 0：不记录；3：记录到ERROR；4：记录到WARN；6：记录到INFO；7：记录到DEBUG；8：记录所有日志
+  logLevel: 8
+  #
+  #前台请求中台是否验签 1：验签；0：不验签
+  isVerifySign: 0

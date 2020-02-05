@@ -1,7 +1,7 @@
 package cn.wbnull.hellotlj.constant;
 
 /**
- * 中台响应信息，返回码
+ * 后台响应信息，返回码
  *
  * @author dukunbiao(null)  2020-02-05
  * https://github.com/dkbnull/HelloTljServer
@@ -19,7 +19,7 @@ public enum ResponseCode {
     FAIL("2000"),
 
     /**
-     * 全局错误，主要为中台业务产生的错误
+     * 全局错误，主要为后台业务产生的错误
      */
     ERROR("4000"),
 
@@ -29,7 +29,7 @@ public enum ResponseCode {
     PARAM_ERROR("4001"),
 
     /**
-     * 异常，主要为中台请求三方平台业务产生的异常
+     * 异常，主要为后台请求三方平台业务产生的异常
      */
     EXCEPTION("5000"),
     ;

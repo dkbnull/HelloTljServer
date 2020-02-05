@@ -6,7 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import lombok.Data;
 
 /**
- * 中台响应信息
+ * 后台响应信息
  *
  * @author dukunbiao(null)  2020-02-05
  * https://github.com/dkbnull/HelloTljServer

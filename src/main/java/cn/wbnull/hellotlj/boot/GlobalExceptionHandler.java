@@ -23,7 +23,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public JSONObject globalExceptionHandler(HttpServletRequest servletRequest, GlobalException e) {
         JSONObject response = AppResponse.error(e.toString());
-        LoggerUtils.error(servletRequest.getRemoteAddr(), "中台返回前台", servletRequest.getRequestURI(), response.toString());
+        LoggerUtils.error(servletRequest.getRemoteAddr(), "后台返回前台", servletRequest.getRequestURI(), response.toString());
 
         return response;
     }
@@ -32,7 +32,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public JSONObject paramExceptionHandler(HttpServletRequest servletRequest, ParamException e) {
         JSONObject response = AppResponse.paramError(e.toString());
-        LoggerUtils.error(servletRequest.getRemoteAddr(), "中台返回前台", servletRequest.getRequestURI(), response.toString());
+        LoggerUtils.error(servletRequest.getRemoteAddr(), "后台返回前台", servletRequest.getRequestURI(), response.toString());
 
         return response;
     }
@@ -42,9 +42,9 @@ public class GlobalExceptionHandler {
     public JSONObject exceptionHandler(HttpServletRequest servletRequest, Exception e) {
         JSONObject response = AppResponse.exception(e.toString());
 
-        LoggerUtils.error(servletRequest.getRemoteAddr(), "中台返回前台", servletRequest.getRequestURI(), response.toString());
+        LoggerUtils.error(servletRequest.getRemoteAddr(), "后台返回前台", servletRequest.getRequestURI(), response.toString());
         if (printStackTrace(e)) {
-            LoggerUtils.error(servletRequest.getRemoteAddr(), "中台返回前台，异常堆栈信息", servletRequest.getRequestURI(), e);
+            LoggerUtils.error(servletRequest.getRemoteAddr(), "后台返回前台，异常堆栈信息", servletRequest.getRequestURI(), e);
         }
 
         return response;

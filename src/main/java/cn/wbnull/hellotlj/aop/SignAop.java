@@ -37,7 +37,7 @@ public class SignAop {
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest servletRequest = requestAttributes.getRequest();
 
-        LoggerUtils.info(servletRequest.getRemoteAddr(), "前台请求中台", servletRequest.getRequestURI(), logContent(servletRequest.getRequestURI(), request.toString()));
+        LoggerUtils.info(servletRequest.getRemoteAddr(), "前台请求后台", servletRequest.getRequestURI(), logContent(servletRequest.getRequestURI(), request.toString()));
     }
 
     @AfterReturning(value = "signAop()", returning = "response")
@@ -46,7 +46,7 @@ public class SignAop {
         HttpServletRequest servletRequest = requestAttributes.getRequest();
         String uri = servletRequest.getRequestURI();
 
-        LoggerUtils.info(servletRequest.getRemoteAddr(), "中台返回前台", uri, logContent(servletRequest.getRequestURI(), response.toString()));
+        LoggerUtils.info(servletRequest.getRemoteAddr(), "后台返回前台", uri, logContent(servletRequest.getRequestURI(), response.toString()));
 
         return response;
     }

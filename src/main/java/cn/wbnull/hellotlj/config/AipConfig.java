@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 /**
  * application.yml
  *
- * @author dukunbiao(null)  2018-12-31
- * https://github.com/dkbnull/HelloAip
+ * @author dukunbiao(null)  2020-02-04
+ * https://github.com/dkbnull/HelloTljServer
  */
 @Component
 @PropertySource(value = "classpath:application.yml", encoding = "UTF-8")

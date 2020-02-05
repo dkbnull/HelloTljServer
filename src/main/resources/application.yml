@@ -15,6 +15,21 @@ management:
       exposure:
         include: shutdown
 #
+#数据库配置
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      url: jdbc:mysql://127.0.0.1:3306/hellotlj?characterEncoding=utf8&serverTimezone=GMT%2B8
+      username: root
+      password: root
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      platform: mysql
+#
+mybatis-plus:
+  mapper-locations: classpath*:mapper/*.xml
+  type-aliases-package: cn.wbnull.hellotlj.entity
+#
 #
 aip:
   #记录日志等级 0：不记录；3：记录到ERROR；4：记录到WARN；6：记录到INFO；7：记录到DEBUG；8：记录所有日志

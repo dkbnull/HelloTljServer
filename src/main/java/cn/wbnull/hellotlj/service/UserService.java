@@ -9,6 +9,7 @@ import cn.wbnull.hellotlj.model.user.RegisterAppRequestData;
 import cn.wbnull.hellotlj.util.JSONUtils;
 import cn.wbnull.hellotlj.util.ListUtils;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,7 +32,11 @@ public class UserService {
 
     @Transactional
     public JSONObject userRegister(RegisterAppRequestData appRequestData) {
-        if (!ListUtils.isEmpty(userMapper.selectByUsername(appRequestData.getUsername()))) {
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("username", appRequestData.getUsername());
+
+        List<User> users = userMapper.selectList(wrapper);
+        if (!ListUtils.isEmpty(users)) {
             return AppResponse.fail("用户名已存在");
         }
 
@@ -41,7 +46,7 @@ public class UserService {
             return AppResponse.fail("用户注册失败");
         }
 
-        Userinfo userinfo = Userinfo.build(user.getId(), appRequestData);
+        Userinfo userinfo = Userinfo.build(user.getUserId(), appRequestData);
         result = userinfoMapper.insert(userinfo);
 
         if (result != 1) {
@@ -52,7 +57,10 @@ public class UserService {
     }
 
     public JSONObject userLogin(RegisterAppRequestData appRequestData) throws Exception {
-        List<User> users = userMapper.selectByUsername(appRequestData.getUsername());
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("username", appRequestData.getUsername());
+
+        List<User> users = userMapper.selectList(wrapper);
         if (ListUtils.isEmpty(users)) {
             return AppResponse.fail("用户不存在");
         }
@@ -62,7 +70,7 @@ public class UserService {
             return AppResponse.fail("用户名或密码错误");
         }
 
-        Userinfo userinfo = userinfoMapper.selectById(user.getId());
+        Userinfo userinfo = userinfoMapper.selectById(user.getUserId());
         return AppResponse.success(JSONUtils.javaBeanToJSON(userinfo));
     }
 }

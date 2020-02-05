@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.wbnull.hellotlj.mapper.UserinfoMapper">
+<mapper namespace="cn.wbnull.hellotlj.mysql.mapper.UserinfoMapper">
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="cn.wbnull.hellotlj.entity.Userinfo">
-        <id column="id" property="id" />
+        <id column="userId" property="userId" />
         <result column="nickname" property="nickname" />
         <result column="score" property="score" />
         <result column="winNum" property="winNum" />
@@ -14,7 +14,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, nickname, score, winNum, failNum, dogfallNum
+        userId, nickname, score, winNum, failNum, dogfallNum
     </sql>
 
 </mapper>

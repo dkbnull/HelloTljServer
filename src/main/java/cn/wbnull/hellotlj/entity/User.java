@@ -1,6 +1,8 @@
 package cn.wbnull.hellotlj.entity;
 
 import cn.wbnull.hellotlj.model.user.RegisterAppRequestData;
+import cn.wbnull.hellotlj.util.JSONUtils;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 
 import java.io.Serializable;
@@ -18,7 +20,8 @@ public class User extends Model<User> {
 
     private static final long serialVersionUID = 1L;
 
-    private String id;
+    @TableId("userId")
+    private String userId;
 
     private String username;
 
@@ -26,19 +29,19 @@ public class User extends Model<User> {
 
     public static User build(RegisterAppRequestData appRequestData) {
         User user = new User();
-        user.id = UUID.randomUUID().toString();
+        user.userId = UUID.randomUUID().toString();
         user.username = appRequestData.getUsername();
         user.password = appRequestData.getPassword();
 
         return user;
     }
 
-    public String getId() {
-        return id;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getUsername() {
@@ -59,15 +62,11 @@ public class User extends Model<User> {
 
     @Override
     protected Serializable pkVal() {
-        return this.id;
+        return this.userId;
     }
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username=" + username +
-                ", password=" + password +
-                "}";
+        return JSONUtils.javaBeanToJSON(this).toString();
     }
 }

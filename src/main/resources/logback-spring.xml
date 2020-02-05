@@ -23,7 +23,7 @@
 
     <appender name="LOG_INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <FileNamePattern>${LOG_HOME}/log_%d{yyyyMMdd}_%i.log</FileNamePattern>
+            <FileNamePattern>${LOG_HOME}/%d{yyyyMMdd}/log_%d{yyyyMMdd}_%i.log</FileNamePattern>
             <MaxHistory>365</MaxHistory>
             <MaxFileSize>5MB</MaxFileSize>
         </rollingPolicy>

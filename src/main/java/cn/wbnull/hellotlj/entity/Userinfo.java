@@ -1,7 +1,9 @@
 package cn.wbnull.hellotlj.entity;
 
 import cn.wbnull.hellotlj.model.user.RegisterAppRequestData;
+import cn.wbnull.hellotlj.util.JSONUtils;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 
 import java.io.Serializable;
@@ -18,7 +20,8 @@ public class Userinfo extends Model<Userinfo> {
 
     private static final long serialVersionUID = 1L;
 
-    private String id;
+    @TableId("userId")
+    private String userId;
 
     private String nickname;
 
@@ -33,9 +36,9 @@ public class Userinfo extends Model<Userinfo> {
     @TableField("dogfallNum")
     private Integer dogfallNum;
 
-    public static Userinfo build(String id, RegisterAppRequestData appRequestData) {
+    public static Userinfo build(String userId, RegisterAppRequestData appRequestData) {
         Userinfo userinfo = new Userinfo();
-        userinfo.id = id;
+        userinfo.userId = userId;
         userinfo.nickname = appRequestData.getNickname();
         userinfo.score = 10000;
         userinfo.winNum = 0;
@@ -45,12 +48,12 @@ public class Userinfo extends Model<Userinfo> {
         return userinfo;
     }
 
-    public String getId() {
-        return id;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getNickname() {
@@ -95,18 +98,11 @@ public class Userinfo extends Model<Userinfo> {
 
     @Override
     protected Serializable pkVal() {
-        return this.id;
+        return this.userId;
     }
 
     @Override
     public String toString() {
-        return "Userinfo{" +
-                "id=" + id +
-                ", nickname=" + nickname +
-                ", score=" + score +
-                ", winNum=" + winNum +
-                ", failNum=" + failNum +
-                ", dogfallNum=" + dogfallNum +
-                "}";
+        return JSONUtils.javaBeanToJSON(this).toString();
     }
 }

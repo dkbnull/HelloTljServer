@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
  * https://github.com/dkbnull/HelloTljServer
  */
 @Component
-@PropertySource(value = "classpath:application.yml", encoding = "UTF-8")
+@PropertySource(value = "application.yml", encoding = "UTF-8")
 @ConfigurationProperties(prefix = "aip")
 public class AipConfig {
 

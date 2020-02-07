@@ -50,4 +50,9 @@ public class GameController {
     public JSONObject gameStart(@RequestBody AppRequest<GameJoinAppRequestData> request) throws Exception {
         return gameService.gameStart(request.getData());
     }
+
+    @PostMapping(value = "/over")
+    public JSONObject gameOver(@RequestBody AppRequest<GameJoinAppRequestData> request) throws Exception {
+        return gameService.gameOver(request.getData());
+    }
 }

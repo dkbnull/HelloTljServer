@@ -1,8 +1,10 @@
 package cn.wbnull.hellotlj.service;
 
 import cn.wbnull.hellotlj.entity.Gametable;
+import cn.wbnull.hellotlj.entity.Tableinfo;
 import cn.wbnull.hellotlj.entity.Userinfo;
 import cn.wbnull.hellotlj.mapper.GametableMapper;
+import cn.wbnull.hellotlj.mapper.TableinfoMapper;
 import cn.wbnull.hellotlj.mapper.UserinfoMapper;
 import cn.wbnull.hellotlj.model.AppResponse;
 import cn.wbnull.hellotlj.model.game.GameCreateAppRequestData;
@@ -34,6 +36,8 @@ public class GameService {
     private UserinfoMapper userinfoMapper;
     @Autowired
     private GametableMapper gametableMapper;
+    @Autowired
+    private TableinfoMapper tableinfoMapper;
 
     @Transactional
     public JSONObject gameCreate(GameCreateAppRequestData appRequestData) {
@@ -98,11 +102,24 @@ public class GameService {
         PokerTools.initPokerMarks();
         JSONArray response = new JSONArray();
         for (Gametable gametable : gametables) {
-            GameStartAppResponseData appResponseData = GameStartAppResponseData.build(gametable.getUserId(),
-                    PokerTools.sendPoker());
+            List<String> pokers = PokerTools.sendPoker();
+            Tableinfo tableinfo = Tableinfo.build(gametable, pokers);
+            tableinfoMapper.insert(tableinfo);
+
+            GameStartAppResponseData appResponseData = GameStartAppResponseData.build(gametable.getUserId(), pokers);
             response.add(appResponseData);
         }
 
         return AppResponse.success(response);
+    }
+
+    public JSONObject gameOver(GameJoinAppRequestData appRequestData) {
+        QueryWrapper<Tableinfo> wrapperTable = new QueryWrapper<>();
+        wrapperTable.eq("tableId", appRequestData.getTableId());
+        List<Tableinfo> tableinfos = tableinfoMapper.selectList(wrapperTable);
+
+        tableinfoMapper.delete(wrapperTable);
+
+        return AppResponse.success(JSONArray.parseArray(tableinfos.toString()));
     }
 }

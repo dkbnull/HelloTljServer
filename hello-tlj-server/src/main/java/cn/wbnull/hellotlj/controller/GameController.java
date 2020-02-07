@@ -45,4 +45,9 @@ public class GameController {
     public JSONObject gameInfo(@RequestBody AppRequest<GameJoinAppRequestData> request) throws Exception {
         return gameService.gameInfo(request.getData());
     }
+
+    @PostMapping(value = "/start")
+    public JSONObject gameStart(@RequestBody AppRequest<GameJoinAppRequestData> request) throws Exception {
+        return gameService.gameStart(request.getData());
+    }
 }

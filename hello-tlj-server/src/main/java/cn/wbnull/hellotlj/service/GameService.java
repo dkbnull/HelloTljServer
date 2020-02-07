@@ -8,7 +8,10 @@ import cn.wbnull.hellotlj.model.AppResponse;
 import cn.wbnull.hellotlj.model.game.GameCreateAppRequestData;
 import cn.wbnull.hellotlj.model.game.GameJoinAppRequestData;
 import cn.wbnull.hellotlj.model.game.GameJoinAppResponseData;
+import cn.wbnull.hellotlj.model.game.GameStartAppResponseData;
+import cn.wbnull.hellotlj.tool.PokerTools;
 import cn.wbnull.hellotlj.util.ListUtils;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,5 +88,21 @@ public class GameService {
         }
 
         return AppResponse.success(GameJoinAppResponseData.build(gametable, userinfos));
+    }
+
+    public JSONObject gameStart(GameJoinAppRequestData appRequestData) {
+        QueryWrapper<Gametable> wrapperTable = new QueryWrapper<>();
+        wrapperTable.eq("tableId", appRequestData.getTableId());
+        List<Gametable> gametables = gametableMapper.selectList(wrapperTable);
+
+        PokerTools.initPokerMarks();
+        JSONArray response = new JSONArray();
+        for (Gametable gametable : gametables) {
+            GameStartAppResponseData appResponseData = GameStartAppResponseData.build(gametable.getUserId(),
+                    PokerTools.sendPoker());
+            response.add(appResponseData);
+        }
+
+        return AppResponse.success(response);
     }
 }

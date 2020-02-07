@@ -2,6 +2,7 @@ package cn.wbnull.hellotlj.model;
 
 import cn.wbnull.hellotlj.constant.ResponseCode;
 import cn.wbnull.hellotlj.util.JSONUtils;
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import lombok.Data;
 
@@ -16,7 +17,7 @@ public class AppResponse {
 
     private String code;
     private String message;
-    private JSONObject data;
+    private JSON data;
 
     public static JSONObject success() {
         AppResponse aipResponse = new AppResponse();
@@ -34,7 +35,7 @@ public class AppResponse {
         return JSONUtils.javaBeanToJSON(aipResponse);
     }
 
-    public static JSONObject success(JSONObject data) {
+    public static JSONObject success(JSON data) {
         AppResponse aipResponse = new AppResponse();
         aipResponse.code = ResponseCode.SUCCESS.code();
         aipResponse.message = "SUCCESS";
